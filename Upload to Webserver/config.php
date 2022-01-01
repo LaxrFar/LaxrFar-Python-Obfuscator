@@ -1,3 +1,3 @@
 <?php
-   $path = 'print.py';
+   $path = 'main.py';
 ?>
