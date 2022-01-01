@@ -30,14 +30,12 @@ else:
             data = {}
             data = ({
                 'url' : url,
-                'icon' : icon,
             })
             json.dump(data, f)
     else:
         with open('config.json', 'r') as f:
             data = json.load(f)
         url = data['url']
-        icon = data['icon']
 f = open("obfuscated.py", "w")
 f.write("""try:
     import requests
@@ -63,6 +61,6 @@ os.system("pip3 install pyarmor")
 if os.name == 'nt':
     os.system(f'pyarmor pack --clean -e "--onefile --icon {icon}" obfuscated.py')
 else:
-    os.system(f'pyarmor pack --clean -e "--onefile" obfuscated.py')
+    os.system(f'pyarmor pack --clean -e "--onefile " obfuscated.py')
 os.remove("obfuscated.py")
-print("Builded To Executable")
+print("Builded To Exe")
