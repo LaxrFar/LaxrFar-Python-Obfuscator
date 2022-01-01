@@ -65,4 +65,4 @@ if os.name == 'nt':
 else:
     os.system(f'pyarmor pack --clean -e "--onefile" obfuscated.py')
 os.remove("obfuscated.py")
-print("Builded To Exe")
+print("Builded To Executable")
